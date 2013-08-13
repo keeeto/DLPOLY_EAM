@@ -1,0 +1,67 @@
+
+-----------------------------------------------------------------------------------------------------------------------------
+STEP 1:  Compile all .f files and rename executables:
+	 cross_pair.f -> cross_pair.exe
+	 density.f    -> density.exe
+	 embedding.f  -> embedding.exe
+	 morse.f      -> morse.exe
+
+-----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+
+STEP 2: To create the TABEAM file you will need files with input
+   	parameters for each potential.
+	
+	There are inputs for Pair, Density and Embedding potentials.
+	There must be one of each of these for each atom type considered.
+	They are named:
+			morse_mod.dat.$N
+			embed_mod.dat.$N
+			dens_mod.dat.$N
+
+		Where $N = 1,2,3 .... Number of atom types.
+
+	The Format of the files (examples of each type for Ag are included):
+
+	morse_mod :
+Line 1:            Atom Symbol (This must be a character of max length 2)
+Line 2:		   lower limit, upper limit (These are the cutoffs for the potential, must be real numbers)
+Line 3:		   A, alpha, r_eq, kappa  (Named as in Acta Mater. 49 (2001) 4005 - 4015)
+Line 4:		   B, beta, lambda        (Names as above)
+Line 5:		   grid density 	  (The gap between points on the mesh, a real number, in Angstrom)
+
+
+	embed_mod :
+Line 1:            Atom Symbol (This must be a character of max length 2)
+Line 2:		   lower limit, upper limit (These are the cutoffs for the potential, must be real numbers)
+Line 3:		   F_n1, F_n2, F_n3, F_1, F_2, F_3, F_e  (Named as in Acta Mater. 49 (2001) 4005 - 4015)
+Line 4: 	   F_n0,F_0				 (Named as above)
+Line 5:		   rho_e,eta				 (Named as above)
+Line 6:		   grid density 	  (The gap between points on the mesh, a real number, in Angstrom)
+
+
+	dens_mod :
+Line 1:            Atom Symbol (This must be a character of max length 2)
+Line 2:		   lower limit, upper limit (These are the cutoffs for the potential, must be real numbers)
+Line 3:		   f_e,beta,r_e,lambda
+Line 6:		   grid density 	  (The gap between points on the mesh, a real number, in Angstrom)
+
+
+**************NOTE: When constructing cross pair potentials it is VERY IMPORTANT that the lower limit, 
+	            upper limit and grid density be the same in the morse_mod file of all species.
+
+-----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+
+STEP 3: Run the code. Just type ./Make_Alloy_EAMS.csh $N   [In this case $N = number of different atoms + 1]*
+
+* Yes, there is a +1, due to my horrible programing practice, but I just don't like zero as an index.
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+Examples:
+
+There are example input files for Ag and Pb in the Elements folder.
+-----------------------------------------------------------------------------------------------------------------------------
+
